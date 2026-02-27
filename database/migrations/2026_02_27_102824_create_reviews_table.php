@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('booking_id')->constrained('bookings');
+            $table->integer('rating')->default(5);
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }

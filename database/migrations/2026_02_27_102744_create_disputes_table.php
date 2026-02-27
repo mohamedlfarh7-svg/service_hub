@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('disputes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('booking_id')->constrained('bookings');
+            $table->foreignId('raised_by')->constrained('users');
+            $table->text('reason');
+            $table->enum('status', ['open', 'resolved'])->default('open');
+            $table->text('admin_decision')->nullable();
             $table->timestamps();
         });
     }

@@ -15,8 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->enum('role', ['client', 'provider', 'admin'])->default('client');
+            $table->integer('points_balance')->default(100);
+            $table->boolean('is_suspended')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

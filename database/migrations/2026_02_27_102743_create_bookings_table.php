@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('client_id')->constrained('users');
+            $table->foreignId('service_id')->constrained('services');
+            $table->enum('status', ['pending', 'accepted', 'completed', 'disputed', 'cancelled'])->default('pending');
+            $table->integer('total_points');
             $table->timestamps();
         });
     }

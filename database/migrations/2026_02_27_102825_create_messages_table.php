@@ -13,6 +13,9 @@ return new class extends Migration
     {
         Schema::create('messages', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('booking_id')->constrained('bookings');
+            $table->foreignId('sender_id')->constrained('users');
+            $table->text('content');
             $table->timestamps();
         });
     }
