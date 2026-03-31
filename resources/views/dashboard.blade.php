@@ -37,7 +37,7 @@
         </div>
 
         <div class="flex items-center gap-4 border-l pl-4 border-gray-100">
-            <span class="text-[11px] font-bold text-gray-800 italic uppercase">Mohamed El Farh</span>
+            <span class="text-[11px] font-bold text-gray-800 italic uppercase">{{ Auth::user()->name }}</span>
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
                 <button type="submit" class="text-gray-400 hover:text-red-500 transition">
@@ -74,7 +74,7 @@
                 <div class="text-blue-500">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle></svg>
                 </div>
-                <span class="text-[18px] font-bold text-gray-800 italic">02</span>
+                <span class="text-[18px] font-bold text-gray-800 italic">{{ $activeBookingsCount }}</span>
                 <span class="text-[9px] font-bold italic text-gray-400 uppercase tracking-widest">Active Now</span>
             </div>
             <div class="flex flex-col items-center gap-3">
@@ -88,7 +88,7 @@
                 <div class="text-blue-500">
                     <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
                 </div>
-                <span class="text-[18px] font-bold text-gray-800 italic">$1,200</span>
+                <span class="text-[18px] font-bold text-gray-800 italic">${{ number_format($totalSpent, 2) }}</span>
                 <span class="text-[9px] font-bold italic text-gray-400 uppercase tracking-widest">Total Spent</span>
             </div>
         </div>
@@ -98,41 +98,20 @@
         <h2 class="text-2xl font-bold text-center italic text-gray-800 mb-12">Recommended for You</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             
+            @foreach($recentBookings as $booking)
             <div class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden hover:-translate-y-1 transition duration-300">
-                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?q=80&w=400&h=250&auto=format&fit=crop" class="h-44 w-full object-cover">
+                <img src="{{ $booking->service->image }}" class="h-44 w-full object-cover">
                 <div class="p-6">
-                    <h3 class="font-bold text-gray-800 mb-1 text-sm italic">Consultation Service</h3>
-                    <p class="text-[10px] text-gray-400 mb-6 italic">Professional consultation for your business needs</p>
+                    <h3 class="font-bold text-gray-800 mb-1 text-sm italic">{{ $booking->service->title }}</h3>
+                    <p class="text-[10px] text-gray-400 mb-6 italic">{{ $booking->service->description }}</p>
                     <div class="flex justify-between items-center border-t pt-4">
-                        <span class="text-blue-600 font-bold text-base">$150</span>
+                        <span class="text-blue-600 font-bold text-base">${{ number_format($booking->service->price, 2) }}</span>
                         <a href="#" class="text-[10px] font-bold text-blue-500 uppercase tracking-tighter hover:underline">Book Again</a>
                     </div>
                 </div>
             </div>
+            @endforeach
 
-            <div class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden hover:-translate-y-1 transition duration-300">
-                <img src="https://images.unsplash.com/photo-1573161158332-5444389b254d?q=80&w=400&h=250&auto=format&fit=crop" class="h-44 w-full object-cover">
-                <div class="p-6">
-                    <h3 class="font-bold text-gray-800 mb-1 text-sm italic leading-tight">Technical Support</h3>
-                    <p class="text-[10px] text-gray-400 mb-6 italic">Expert technical support and troubleshooting</p>
-                    <div class="flex justify-between items-center border-t pt-4">
-                        <span class="text-blue-600 font-bold text-base">$150</span>
-                        <a href="#" class="text-[10px] font-bold text-blue-500 uppercase tracking-tighter hover:underline">Book Again</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="bg-white rounded-2xl shadow-xl shadow-gray-200/50 border border-gray-100 overflow-hidden hover:-translate-y-1 transition duration-300">
-                <img src="https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=400&h=250&auto=format&fit=crop" class="h-44 w-full object-cover">
-                <div class="p-6">
-                    <h3 class="font-bold text-gray-800 mb-1 text-sm italic leading-tight">Design Services</h3>
-                    <p class="text-[10px] text-gray-400 mb-6 italic">Creative design solutions for your brand</p>
-                    <div class="flex justify-between items-center border-t pt-4">
-                        <span class="text-blue-600 font-bold text-base">$150</span>
-                        <a href="#" class="text-[10px] font-bold text-blue-500 uppercase tracking-tighter hover:underline">Book Again</a>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -145,8 +124,8 @@
             <div>
                 <h3 class="font-bold text-lg mb-4 italic uppercase text-[12px] tracking-widest">Navigation</h3>
                 <ul class="text-gray-400 text-sm space-y-2 italic">
-                    <li><a href="#" class="hover:text-blue-400 transition">My History</a></li>
-                    <li><a href="#" class="hover:text-blue-400 transition">Settings</a></li>
+                    <li><a href="{{ url('/bookings') }}" class="hover:text-blue-400 transition">My History</a></li>
+                    <li><a href="{{ url('/profile') }}" class="hover:text-blue-400 transition">Settings</a></li>
                     <li><a href="#" class="hover:text-blue-400 transition">Support</a></li>
                 </ul>
             </div>
