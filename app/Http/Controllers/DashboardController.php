@@ -13,18 +13,25 @@ class DashboardController extends Controller
     {
         $user = Auth::user();
 
-        $totalSpent = Transaction::where('user_id', $user->id)->sum('amount');
+        $stats = [
+            'total'     => Booking::where('user_id', $user->id)->count(),
+            'pending'   => Booking::where('user_id', $user->id)->where('status', 'pending')->count(),
+            'confirmed' => Booking::where('user_id', $user->id)
+                                 ->whereIn('status', ['confirmed', 'active'])
+                                 ->count(),
+            'completed' => Booking::where('user_id', $user->id)->where('status', 'completed')->count(),
+        ];
 
-        $activeBookingsCount = Booking::where('user_id', $user->id)
-                                    ->where('status', 'active')
-                                    ->count();
+        $totalSpent = Transaction::where('user_id', $user->id)
+                                ->where('status', 'success')
+                                ->sum('amount');
 
         $recentBookings = Booking::where('user_id', $user->id)
-                                ->with('service')
-                                ->latest()
-                                ->take(3)
-                                ->get();
+            ->with('service')
+            ->latest()
+            ->take(5)
+            ->get();
 
-        return view('dashboard', compact('totalSpent', 'activeBookingsCount', 'recentBookings'));
+        return view('dashboard', compact('stats', 'recentBookings', 'totalSpent'));
     }
 }

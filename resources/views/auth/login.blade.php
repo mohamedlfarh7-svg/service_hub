@@ -24,17 +24,14 @@
         </div>
         
         <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-            <a href="/" class="text-blue-600 flex items-center gap-1">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg> 
-                home
-            </a>
+            <a href="/" class="text-gray-500 hover:text-blue-600 transition">home</a>
             <a href="#" class="text-gray-500 hover:text-blue-600 transition">About</a>
             <a href="#" class="text-gray-500 hover:text-blue-600 transition">services</a>
             <a href="#" class="text-gray-500 hover:text-blue-600 transition">contact</a>
         </div>
 
         <div class="flex items-center gap-3">
-            <a href="{{ route('login') }}" class="px-4 py-2 border border-gray-300 rounded text-[10px] font-bold text-gray-600 uppercase flex items-center gap-1 hover:bg-gray-50 transition">
+            <a href="{{ route('login') }}" class="px-4 py-2 border border-blue-600 rounded text-[10px] font-bold text-blue-600 uppercase flex items-center gap-1 hover:bg-blue-50 transition">
                 <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg> 
                 Login
             </a>
@@ -43,6 +40,7 @@
             </a>
         </div>
     </nav>
+
     <div class="flex-grow flex items-center justify-center p-6">
         <div class="bg-white w-full max-w-[450px] p-10 rounded-[30px] shadow-[0_10px_50px_rgba(0,0,0,0.05)] border border-gray-100 flex flex-col items-center">
             
@@ -54,36 +52,52 @@
                 </div>
             </div>
 
-            <h1 class="text-2xl font-bold text-gray-800 mb-1">Login</h1>
-            <p class="text-gray-400 text-sm mb-8">Welcome back to ServiceHub</p>
+            <h1 class="text-2xl font-bold text-gray-800 mb-1 italic uppercase tracking-tight">Login</h1>
+            <p class="text-gray-400 text-sm mb-8 font-medium">Welcome back to ServiceHub</p>
 
-            <form action="/login" method="POST" class="w-full space-y-5">
-                <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 ml-1">Email</label>
-                    <input type="email" placeholder="your@gmail.com" 
-                        class="w-full px-5 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all italic text-gray-600">
+            <form action="{{ route('login') }}" method="POST" class="w-full space-y-5">
+                @csrf <div>
+                    <label class="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Email Address</label>
+                    <input type="email" name="email" value="{{ old('email') }}" required autofocus
+                        placeholder="your@gmail.com" 
+                        class="w-full px-5 py-3 rounded-xl border @error('email') border-red-400 @else border-gray-200 @enderror focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all italic text-gray-600 font-medium">
+                    @error('email')
+                        <p class="text-red-500 text-[10px] mt-1 ml-1 font-bold italic">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
-                    <label class="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-2 ml-1">Password</label>
-                    <input type="password" placeholder="••••••••" 
-                        class="w-full px-5 py-3 rounded-xl border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-gray-600">
+                    <label class="block text-xs font-black text-gray-400 uppercase tracking-widest mb-2 ml-1">Password</label>
+                    <input type="password" name="password" required
+                        placeholder="••••••••" 
+                        class="w-full px-5 py-3 rounded-xl border @error('password') border-red-400 @else border-gray-200 @enderror focus:border-blue-500 focus:ring-2 focus:ring-blue-100 outline-none transition-all text-gray-600 font-medium">
+                    @error('password')
+                        <p class="text-red-500 text-[10px] mt-1 ml-1 font-bold italic">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="flex items-center justify-between px-1">
+                    <label class="flex items-center text-xs text-gray-500 font-medium cursor-pointer">
+                        <input type="checkbox" name="remember" class="mr-2 rounded border-gray-300 text-blue-600">
+                        Remember me
+                    </label>
+                    <a href="{{ route('password.request') }}" class="text-[10px] font-black text-blue-500 uppercase tracking-tighter hover:underline">Forgot password?</a>
                 </div>
 
                 <button type="submit" 
-                    class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl shadow-lg shadow-blue-200 transition-all active:scale-[0.98] mt-2">
-                    Login
+                    class="w-full bg-[#0061FF] hover:bg-blue-700 text-white font-black py-4 rounded-xl shadow-lg shadow-blue-100 transition-all active:scale-[0.98] mt-2 uppercase text-xs tracking-widest">
+                    Sign In
                 </button>
             </form>
 
-            <p class="mt-6 text-sm text-gray-500">
-                Don't have an account? <a href="/register" class="text-blue-500 font-bold hover:underline">Register</a>
+            <p class="mt-6 text-sm text-gray-500 font-medium italic">
+                Don't have an account? <a href="{{ route('register') }}" class="text-blue-500 font-black not-italic hover:underline uppercase">Register</a>
             </p>
 
             <div class="mt-8 w-full bg-blue-50 p-4 rounded-2xl border border-blue-100">
-                <p class="text-[10px] font-bold text-blue-400 uppercase tracking-widest mb-1">Demo Accounts:</p>
-                <p class="text-[11px] text-gray-500 font-medium">Admin: admin@example.com / admin123</p>
-                <p class="text-[11px] text-gray-500 font-medium">User: Create a new account</p>
+                <p class="text-[10px] font-black text-blue-400 uppercase tracking-widest mb-1">Quick Access:</p>
+                <p class="text-[11px] text-gray-500 font-medium italic">Admin: <span class="font-bold text-gray-700 not-italic">admin@example.com</span></p>
+                <p class="text-[11px] text-gray-500 font-medium italic">Pass: <span class="font-bold text-gray-700 not-italic">admin123</span></p>
             </div>
         </div>
     </div>
@@ -95,23 +109,22 @@
                 <p class="text-gray-400 text-sm">Your trusted platform for professional services.</p>
             </div>
             <div>
-                <h3 class="font-bold text-lg mb-4">Quick Links</h3>
-                <ul class="text-gray-400 text-sm space-y-2">
-                    <li><a href="#">Services</a></li>
-                    <li><a href="#">About Us</a></li>
-                    <li><a href="#">Contact</a></li>
+                <h3 class="font-bold text-lg mb-4 italic uppercase text-xs tracking-widest">Quick Links</h3>
+                <ul class="text-gray-400 text-sm space-y-2 font-medium italic">
+                    <li><a href="#" class="hover:text-blue-400 transition">Services</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">About Us</a></li>
+                    <li><a href="#" class="hover:text-blue-400 transition">Contact</a></li>
                 </ul>
             </div>
             <div>
-                <h3 class="font-bold text-lg mb-4">Contact</h3>
-                <p class="text-gray-400 text-sm">Email: info@servicehub.com</p>
-                <p class="text-gray-400 text-sm mt-1">Phone: +212 6 244 399 29</p>
+                <h3 class="font-bold text-lg mb-4 italic uppercase text-xs tracking-widest">Contact Us</h3>
+                <p class="text-gray-400 text-sm italic">Email: info@servicehub.com</p>
+                <p class="text-gray-400 text-sm mt-1 italic font-bold text-blue-400">+212 6 244 399 29</p>
             </div>
         </div>
-        <div class="text-center text-gray-500 text-xs mt-12 border-t border-gray-700 pt-6">
-            © 2026 ServiceHub. All rights reserved.
+        <div class="text-center text-gray-500 text-[10px] mt-12 border-t border-gray-700 pt-6 uppercase font-black tracking-[3px]">
+            © 2026 ServiceHub. Developed by Mohamed El Farh.
         </div>
     </footer>
-
 </body>
 </html>

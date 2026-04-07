@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->integer('price_in_points');
+            $table->decimal('price', 8, 2);
+            $table->string('image')->nullable();
             $table->enum('status', ['active', 'hidden'])->default('active');
             $table->timestamps();
         });

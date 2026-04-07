@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users');
             $table->integer('amount'); 
             $table->string('type');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
