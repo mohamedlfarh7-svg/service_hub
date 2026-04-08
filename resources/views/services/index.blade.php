@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto px-8 py-12 bg-white">
-    {{-- Header Section --}}
+
     <div class="flex flex-col md:flex-row md:items-center justify-between mb-10 gap-4">
         <div>
             <h1 class="text-4xl font-black text-gray-900 mb-2 italic tracking-tighter uppercase">Our Services</h1>
@@ -22,7 +22,6 @@
         @endif
     </div>
 
-    {{-- Search Section --}}
     <div class="w-full mb-10">
         <form action="{{ route('services.index') }}" method="GET" class="relative group">
             <div class="absolute inset-y-0 left-0 pl-5 flex items-center pointer-events-none">
@@ -36,7 +35,6 @@
         </form>
     </div>
 
-    {{-- Filter Section --}}
     <div class="flex flex-wrap justify-start gap-4 mb-14">
         <a href="{{ route('services.index') }}" 
            class="px-8 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all {{ !request('category') ? 'bg-[#0061FF] text-white shadow-lg shadow-blue-100' : 'bg-white border border-gray-100 text-gray-400 hover:border-blue-200' }}">
@@ -51,7 +49,6 @@
         @endforeach
     </div>
 
-    {{-- Services Grid --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         @forelse($services as $service)
             <div class="group block bg-white border border-gray-50 rounded-[40px] overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.03)] hover:shadow-2xl transition-all duration-500 relative">
@@ -70,7 +67,6 @@
                     </div>
                 </div>
 
-                {{-- Content --}}
                 <div class="p-10">
                     <h3 class="font-black text-gray-900 text-xl mb-4 group-hover:text-blue-600 transition-colors uppercase italic tracking-tighter leading-tight">
                         {{ $service->title }}
@@ -79,7 +75,6 @@
                         {{ Str::limit($service->description, 100) }}
                     </p>
                     
-                    {{-- Bottom Details --}}
                     <div class="flex justify-between items-center pt-8 border-t border-gray-50">
                         <div>
                             <span class="block text-[9px] text-gray-300 font-black uppercase tracking-widest leading-none mb-2">Investment</span>
@@ -91,7 +86,6 @@
                         </div>
                     </div>
 
-                    {{-- Action Button Overlay --}}
                     <a href="{{ route('services.show', $service->id) }}" class="mt-8 w-full inline-flex items-center justify-center py-4 bg-gray-50 group-hover:bg-blue-600 group-hover:text-white rounded-2xl text-[10px] font-black uppercase tracking-[3px] transition-all duration-300">
                         View Service Detail
                     </a>
