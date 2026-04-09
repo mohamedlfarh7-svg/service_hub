@@ -28,11 +28,6 @@
                     <svg class="w-4 h-4 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 8h6m-2 10a3 3 0 11-6 0 3 3 0 016 0zM2 5a2 2 0 012-2h16a2 2 0 012 2v14a2 2 0 01-2 2H4a2 2 0 01-2-2V5z"></path></svg>
                     <span>Price: <span class="text-blue-600 font-bold ml-2">${{ number_format($service->price, 0) }}</span></span>
                 </div>
-                
-                <div class="flex items-center text-sm text-gray-500">
-                    <svg class="w-4 h-4 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                    <span>Reward Points: <span class="ml-2 font-bold text-orange-500">{{ $service->price_in_points }} PTS</span></span>
-                </div>
 
                 <div class="flex items-center text-sm text-gray-500">
                     <svg class="w-4 h-4 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
