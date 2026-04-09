@@ -17,7 +17,6 @@ Route::get('/', function () {
     $featuredServices = Service::latest()->take(3)->get();
     return view('welcome', compact('featuredServices'));
 });
-
 Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
