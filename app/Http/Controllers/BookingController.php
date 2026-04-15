@@ -6,6 +6,7 @@ use App\Models\Booking;
 use App\Models\Service;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Notifications\BookingStatusUpdated;
 
 class BookingController extends Controller
 {
@@ -99,6 +100,8 @@ class BookingController extends Controller
             'status' => $request->status
         ]);
 
-        return back()->with('success', "Status updated to {$request->status}.");
+        $booking->user->notify(new BookingStatusUpdated($booking));
+
+        return back()->with('success', "Status updated to {$request->status} and user notified.");
     }
 }
