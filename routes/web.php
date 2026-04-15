@@ -12,14 +12,25 @@ use App\Http\Controllers\DisputeController;
 use App\Http\Controllers\CategoryController;
 use App\Models\Service; 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     $featuredServices = Service::latest()->take(3)->get();
     return view('welcome', compact('featuredServices'));
 });
+
 Route::middleware(['auth', 'verified'])->group(function () {
     
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+    Route::patch('/user/switch-role', function () {
+        $user = Auth::user();
+        
+        $user->role = ($user->role === 'admin') ? 'user' : 'admin';
+        $user->save();
+
+        return back()->with('success', 'Role switched to ' . $user->role);
+    })->name('user.switch-role');
 
     Route::get('/services', [ServiceController::class, 'index'])->name('services.index');
     Route::get('/services/{service}', [ServiceController::class, 'show'])->name('services.show');
@@ -28,6 +39,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/bookings', [BookingController::class, 'index'])->name('bookings.index');
     Route::get('/bookings/create', [BookingController::class, 'create'])->name('bookings.create'); 
     Route::post('/bookings', [BookingController::class, 'store'])->name('bookings.store');
+    Route::delete('/bookings/{booking}', [BookingController::class, 'destroy'])->name('bookings.destroy');
 
     Route::get('/transactions', [TransactionController::class, 'index'])->name('transactions.index');
     Route::get('/transactions/{transaction}', [TransactionController::class, 'show'])->name('transactions.show');
