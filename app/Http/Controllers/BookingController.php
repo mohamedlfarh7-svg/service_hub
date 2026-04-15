@@ -78,18 +78,17 @@ class BookingController extends Controller
 
     public function adminIndex()
     {
-        if (Auth::user()->role !== 'admin') {
-            abort(403);
-        }
+        $bookings = Booking::whereHas('service', function($query) {
+            $query->where('provider_id', Auth::id()); 
+        })->with(['user', 'service'])->latest()->get();
 
-        $bookings = Booking::with(['user', 'service'])->latest()->paginate(15);
         return view('admin.bookings.index', compact('bookings'));
     }
 
     public function updateStatus(Request $request, Booking $booking)
     {
-        if (Auth::user()->role !== 'admin') {
-            abort(403);
+        if (Auth::user()->role !== 'admin' || $booking->service->provider_id !== Auth::id()) {
+            abort(403, 'Unauthorized action.');
         }
 
         $request->validate([
