@@ -94,7 +94,7 @@
                             
                             <div class="flex justify-between items-center pt-6 border-t border-gray-50 text-[12px] font-black italic">
                                 <span class="text-gray-900 text-lg tracking-tighter">${{ number_format($service->price, 0) }}</span>
-                                <span class="text-blue-600 uppercase tracking-tighter bg-blue-50 px-3 py-1 rounded-lg text-[10px]">{{ $service->duration ?? '60' }} MINS</span>
+                                
                             </div>
                         </div>
                     </div>

@@ -69,7 +69,7 @@
 </div>
 
 <style>
-    /* تخصيص بسيط للـ Pagination باش يجي مع الـ Design */
+   
     .pagination { @apply flex justify-center gap-2; }
     .page-item.active .page-link { @apply bg-black border-black text-white; }
     .page-link { @apply rounded-full px-4 py-2 text-xs font-bold border-gray-100 text-gray-400 transition-all hover:bg-gray-50; }

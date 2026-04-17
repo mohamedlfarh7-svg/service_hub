@@ -16,10 +16,8 @@ class DashboardController extends Controller
         $stats = [
             'total'     => Booking::where('user_id', $user->id)->count(),
             'pending'   => Booking::where('user_id', $user->id)->where('status', 'pending')->count(),
-            'confirmed' => Booking::where('user_id', $user->id)
-                                 ->whereIn('status', ['confirmed', 'active'])
-                                 ->count(),
-            'completed' => Booking::where('user_id', $user->id)->where('status', 'completed')->count(),
+            'accepted'  => Booking::where('user_id', $user->id)->where('status', 'accepted')->count(),
+            'cancelled' => Booking::where('user_id', $user->id)->where('status', 'cancelled')->count(),
         ];
 
         $totalSpent = Transaction::where('user_id', $user->id)

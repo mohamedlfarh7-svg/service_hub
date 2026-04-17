@@ -2,14 +2,12 @@
 
 @section('content')
 <div class="max-w-7xl mx-auto px-6 py-8 bg-[#f8fafc] min-h-screen">
-    
-    {{-- Header --}}
+ 
     <div class="mb-8">
         <h1 class="text-2xl font-bold text-gray-800">Welcome, {{ auth()->user()->name }}!</h1>
         <p class="text-gray-500 text-sm">Manage your bookings and profile</p>
     </div>
 
-    {{-- Stats Cards --}}
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-10">
         <div class="bg-white border-2 border-blue-500 rounded-xl p-5 shadow-sm flex items-center justify-between">
             <div class="flex items-center gap-3">
@@ -31,28 +29,28 @@
             <h3 class="text-xl font-bold text-orange-400">{{ $stats['pending'] }}</h3>
         </div>
 
+        {{-- التعديل هنا: بدلنا Confirmed بـ Accepted --}}
         <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="text-green-400">
                     <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-                <p class="text-sm font-medium text-gray-500">Confirmed</p>
+                <p class="text-sm font-medium text-gray-500">Accepted</p>
             </div>
-            <h3 class="text-xl font-bold text-green-500">{{ $stats['confirmed'] }}</h3>
+            <h3 class="text-xl font-bold text-green-500">{{ $stats['accepted'] }}</h3>
         </div>
 
         <div class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <div class="text-purple-400">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 13l4 4L19 7"></path></svg>
                 </div>
-                <p class="text-sm font-medium text-gray-500">Completed</p>
+                <p class="text-sm font-medium text-gray-500">cancelled</p>
             </div>
-            <h3 class="text-xl font-bold text-purple-500">{{ $stats['completed'] }}</h3>
+            <h3 class="text-xl font-bold text-purple-500">{{ $stats['cancelled'] }}</h3>
         </div>
     </div>
 
-    {{-- Quick Actions --}}
     <div class="mb-10">
         <h2 class="text-lg font-bold text-gray-800 mb-5">Quick Actions</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -82,7 +80,6 @@
         </div>
     </div>
 
-    {{-- Recent Bookings Card --}}
     <div class="bg-white border border-gray-200 rounded-2xl shadow-sm overflow-hidden min-h-[300px] flex flex-col">
         <div class="px-8 py-6 border-b border-gray-100">
             <h2 class="text-lg font-bold text-gray-800">Recent Bookings</h2>
@@ -90,7 +87,7 @@
         
         <div class="flex-grow flex flex-col items-center justify-center p-12">
             @if(count($recentBookings) > 0)
-                {{-- Table code can go here if needed --}}
+    
             @else
                 <div class="text-center">
                     <div class="mb-4 text-gray-400 flex justify-center">

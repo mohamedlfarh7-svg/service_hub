@@ -29,10 +29,7 @@
                     <span>Price: <span class="text-blue-600 font-bold ml-2">${{ number_format($service->price, 0) }}</span></span>
                 </div>
 
-                <div class="flex items-center text-sm text-gray-500">
-                    <svg class="w-4 h-4 mr-3 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    <span>Duration: <span class="ml-2">{{ $service->duration ?? '60' }} minutes</span></span>
-                </div>
+                
             </div>
 
             <div class="pt-4">

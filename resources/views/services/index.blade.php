@@ -52,7 +52,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
         @forelse($services as $service)
             <div class="group block bg-white border border-gray-50 rounded-[40px] overflow-hidden shadow-[0_15px_50px_rgba(0,0,0,0.03)] hover:shadow-2xl transition-all duration-500 relative">
-                {{-- Image Container --}}
+              
                 <div class="h-64 overflow-hidden relative bg-gray-50">
                     @if($service->image)
                         <img src="{{ Str::startsWith($service->image, 'http') ? $service->image : asset('storage/services/' . $service->image) }}" 
@@ -80,10 +80,7 @@
                             <span class="block text-[9px] text-gray-300 font-black uppercase tracking-widest leading-none mb-2">Investment</span>
                             <span class="text-2xl font-black text-gray-900 italic leading-none tracking-tighter">${{ number_format($service->price, 0) }}</span>
                         </div>
-                        <div class="flex flex-col items-end">
-                            <span class="block text-[9px] text-gray-300 font-black uppercase tracking-widest leading-none mb-2">Duration</span>
-                            <span class="text-xs font-black text-blue-600 uppercase tracking-tighter bg-blue-50 px-3 py-1 rounded-lg">{{ $service->duration ?? '60' }} MINS</span>
-                        </div>
+                
                     </div>
 
                     <a href="{{ route('services.show', $service->id) }}" class="mt-8 w-full inline-flex items-center justify-center py-4 bg-gray-50 group-hover:bg-blue-600 group-hover:text-white rounded-2xl text-[10px] font-black uppercase tracking-[3px] transition-all duration-300">
