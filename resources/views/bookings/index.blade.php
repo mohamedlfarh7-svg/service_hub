@@ -35,10 +35,7 @@
                     
                     <div class="flex items-center gap-8">
                         @if($booking->status == 'accepted' || $booking->status == 'completed')
-                        <button onclick="openDisputeModal({{ $booking->id }})" 
-                                class="px-4 py-1.5 border border-gray-200 text-gray-400 rounded-lg text-[10px] font-black uppercase tracking-widest italic hover:bg-blue-50 hover:text-[#0047FF] hover:border-blue-100 transition-all">
-                            Report Issue
-                        </button>
+                        
                         @endif
 
                         <span class="px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest italic

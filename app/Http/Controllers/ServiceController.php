@@ -46,11 +46,10 @@ class ServiceController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'price' => 'required|numeric',
-            'category_id' => 'required|exists:categories,id', // زدنا الـ Validation ديالها
+            'category_id' => 'required|exists:categories,id', 
             'image' => 'nullable|image|max:2048',
         ]);
 
-        // تصحيح: استعملنا provider_id حيت هو اللي طالباه الداتابيز عندك
         $data['provider_id'] = auth()->id(); 
         $data['price_in_points'] = $request->price * 10;
 

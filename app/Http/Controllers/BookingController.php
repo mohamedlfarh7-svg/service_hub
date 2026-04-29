@@ -60,7 +60,6 @@ class BookingController extends Controller
             'booking_date' => $request->booking_date,
             'booking_time' => $request->booking_time,
             'status'       => 'pending',
-            'total_points' => $service->price_in_points ?? ($service->price * 10),
         ]);
 
         return redirect()->route('bookings.index')->with('success', 'Service booked successfully!');
